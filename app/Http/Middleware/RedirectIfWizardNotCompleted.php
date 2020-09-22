@@ -26,7 +26,12 @@ class RedirectIfWizardNotCompleted
             return $next($request);
         }
 
-        // Redirect to wizard
+        // check user wizard permission 
+        if (!user()->can('update-common-companies')) {
+            return $next($request);
+        }
+
+        // Redirect to wizard!
         redirect()->route('wizard.edit')->send();
     }
 }
